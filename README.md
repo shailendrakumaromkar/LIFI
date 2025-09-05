@@ -7,7 +7,7 @@ Scope and objective : The scope of this assignment is to test below API covering
 
 Approach : Perform different type of testing for API - Functional, Automation, Performance
 
-Test Cases : Refer below sheet covering Test Cases for respective API endpoint
+Test Cases : Refer LIFI Test Cases.xlsx sheet covering Test Cases for respective API endpoint
 
 ![alt text](TestCase.png)
 
