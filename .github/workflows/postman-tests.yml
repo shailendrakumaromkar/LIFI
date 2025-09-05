@@ -1,0 +1,43 @@
+name: Run Postman Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Step 3: Install Newman
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-html
+
+      # Step 4: Run Postman Collection
+      - name: Run API tests
+        run: |
+          newman run LiFi.postman_collection.json \
+            -e LiFi.postman_environment.json \
+            --reporters cli,junit,html \
+            --reporter-html-export results/report.html \
+            --reporter-junit-export results/report.xml
+
+      # Step 5: Upload Test Report as Artifact
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-report
+          path: results/

@@ -1,0 +1,600 @@
+{
+	"info": {
+		"_postman_id": "eb1d37de-3975-4cb2-ade8-626954642ec2",
+		"name": "LiFi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2557355",
+		"_collection_link": "https://blue-equinox-349756.postman.co/workspace/Moralis~9f67c03c-ac84-4006-a225-25da34195f04/collection/2557355-eb1d37de-3975-4cb2-ade8-626954642ec2?action=share&source=collection_link&creator=2557355"
+	},
+	"item": [
+		{
+			"name": "Swap API",
+			"item": [
+				{
+					"name": "GET /quote",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json()\r",
+									"const responseText = pm.response.text();\r",
+									"\r",
+									"let errorsKeyword = [\r",
+									"    'error',\r",
+									"    'Error',\r",
+									"    'Errors',\r",
+									"    'errors',\r",
+									"    'Error\\u2019s',\r",
+									"    'error\\u2019s',\r",
+									"    'Exception',\r",
+									"    'exception'\r",
+									"];\r",
+									"\r",
+									"let errorCode = [\r",
+									"    500,\r",
+									"    400,\r",
+									"    401\r",
+									"];\r",
+									"\r",
+									"pm.test('Response does not have any errors', () => {\r",
+									"    pm.expect(responseText).to.not.include.oneOf(errorsKeyword);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status code not to be 4XX, 5XX\", function(){\r",
+									"    pm.expect(pm.response.code).to.not.be.oneOf(errorCode);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code to be 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is defined\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.text().length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/swap/v1/quote?amount=100&inputMint=So11111111111111111111111111111111111111112&outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"swap",
+								"v1",
+								"quote"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "100"
+								},
+								{
+									"key": "inputMint",
+									"value": "So11111111111111111111111111111111111111112"
+								},
+								{
+									"key": "outputMint",
+									"value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /swap",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json()\r",
+									"const responseText = pm.response.text();\r",
+									"\r",
+									"let errorsKeyword = [\r",
+									"    'error',\r",
+									"    'Error',\r",
+									"    'Errors',\r",
+									"    'errors',\r",
+									"    'Error\\u2019s',\r",
+									"    'error\\u2019s',\r",
+									"    'Exception',\r",
+									"    'exception'\r",
+									"];\r",
+									"\r",
+									"let errorCode = [\r",
+									"    500,\r",
+									"    400,\r",
+									"    401\r",
+									"];\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code not to be 4XX, 5XX\", function(){\r",
+									"    pm.expect(pm.response.code).to.not.be.oneOf(errorCode);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code to be 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is defined\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.text().length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userPublicKey\": \"jdocuPgEAjMfihABsPgKEvYtsmMzjUHeq9LX4Hvs7f3\",\n  \"quoteResponse\": {\n    \"inputMint\": \"So11111111111111111111111111111111111111112\",\n    \"inAmount\": \"1000000\",\n    \"outputMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n    \"outAmount\": \"125630\",\n    \"otherAmountThreshold\": \"125002\",\n    \"swapMode\": \"ExactIn\",\n    \"slippageBps\": 50,\n    \"platformFee\": null,\n    \"priceImpactPct\": \"0\",\n    \"routePlan\": [\n      {\n        \"swapInfo\": {\n          \"ammKey\": \"4uWuh9fC7rrZKrN8ZdJf69MN1e2S7FPpMqcsyY1aof6K\",\n          \"label\": \"Obric V2\",\n          \"inputMint\": \"So11111111111111111111111111111111111111112\",\n          \"outputMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n          \"inAmount\": \"1000000\",\n          \"outAmount\": \"125630\",\n          \"feeAmount\": \"5\",\n          \"feeMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\"\n        },\n        \"percent\": 100\n      }\n    ]\n  },\n  \"prioritizationFeeLamports\": {\n    \"priorityLevelWithMaxLamports\": {\n      \"maxLamports\": 10000000,\n      \"priorityLevel\": \"veryHigh\"\n    }\n  },\n  \"dynamicComputeUnitLimit\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/swap/v1/swap",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"swap",
+								"v1",
+								"swap"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /swap-instructions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json()\r",
+									"const responseText = pm.response.text();\r",
+									"\r",
+									"let errorsKeyword = [\r",
+									"    'error',\r",
+									"    'Error',\r",
+									"    'Errors',\r",
+									"    'errors',\r",
+									"    'Error\\u2019s',\r",
+									"    'error\\u2019s',\r",
+									"    'Exception',\r",
+									"    'exception'\r",
+									"];\r",
+									"\r",
+									"let errorCode = [\r",
+									"    500,\r",
+									"    400,\r",
+									"    401\r",
+									"];\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code not to be 4XX, 5XX\", function(){\r",
+									"    pm.expect(pm.response.code).to.not.be.oneOf(errorCode);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code to be 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is defined\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.text().length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userPublicKey\": \"jdocuPgEAjMfihABsPgKEvYtsmMzjUHeq9LX4Hvs7f3\",\n  \"quoteResponse\": {\n    \"inputMint\": \"So11111111111111111111111111111111111111112\",\n    \"inAmount\": \"1000000\",\n    \"outputMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n    \"outAmount\": \"125630\",\n    \"otherAmountThreshold\": \"125002\",\n    \"swapMode\": \"ExactIn\",\n    \"slippageBps\": 50,\n    \"platformFee\": null,\n    \"priceImpactPct\": \"0\",\n    \"routePlan\": [\n      {\n        \"swapInfo\": {\n          \"ammKey\": \"4uWuh9fC7rrZKrN8ZdJf69MN1e2S7FPpMqcsyY1aof6K\",\n          \"label\": \"Obric V2\",\n          \"inputMint\": \"So11111111111111111111111111111111111111112\",\n          \"outputMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n          \"inAmount\": \"1000000\",\n          \"outAmount\": \"125630\",\n          \"feeAmount\": \"5\",\n          \"feeMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\"\n        },\n        \"percent\": 100\n      }\n    ]\n  },\n  \"prioritizationFeeLamports\": {\n    \"priorityLevelWithMaxLamports\": {\n      \"maxLamports\": 10000000,\n      \"priorityLevel\": \"veryHigh\"\n    }\n  },\n  \"dynamicComputeUnitLimit\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/swap/v1/swap-instructions",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"swap",
+								"v1",
+								"swap-instructions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token API v2 (Beta)",
+			"item": [
+				{
+					"name": "GET /token/v2/search",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json()\r",
+									"const responseText = pm.response.text();\r",
+									"\r",
+									"let errorsKeyword = [\r",
+									"    'error',\r",
+									"    'Error',\r",
+									"    'Errors',\r",
+									"    'errors',\r",
+									"    'Error\\u2019s',\r",
+									"    'error\\u2019s',\r",
+									"    'Exception',\r",
+									"    'exception'\r",
+									"];\r",
+									"\r",
+									"let errorCode = [\r",
+									"    500,\r",
+									"    400,\r",
+									"    401\r",
+									"];\r",
+									"\r",
+									"pm.test('Response does not have any errors', () => {\r",
+									"    pm.expect(responseText).to.not.include.oneOf(errorsKeyword);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status code not to be 4XX, 5XX\", function(){\r",
+									"    pm.expect(pm.response.code).to.not.be.oneOf(errorCode);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code to be 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is defined\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.text().length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/tokens/v2/search?query=USDC",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tokens",
+								"v2",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "USDC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /token/v2/tag",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json()\r",
+									"const responseText = pm.response.text();\r",
+									"\r",
+									"let errorsKeyword = [\r",
+									"    'error',\r",
+									"    'Error',\r",
+									"    'Errors',\r",
+									"    'errors',\r",
+									"    'Error\\u2019s',\r",
+									"    'error\\u2019s',\r",
+									"    'Exception',\r",
+									"    'exception'\r",
+									"];\r",
+									"\r",
+									"let errorCode = [\r",
+									"    500,\r",
+									"    400,\r",
+									"    401\r",
+									"];\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code not to be 4XX, 5XX\", function(){\r",
+									"    pm.expect(pm.response.code).to.not.be.oneOf(errorCode);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code to be 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is defined\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.text().length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/tokens/v2/tag?query=verified",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tokens",
+								"v2",
+								"tag"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "verified"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /token/v2/category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json()\r",
+									"const responseText = pm.response.text();\r",
+									"\r",
+									"let errorsKeyword = [\r",
+									"    'error',\r",
+									"    'Error',\r",
+									"    'Errors',\r",
+									"    'errors',\r",
+									"    'Error\\u2019s',\r",
+									"    'error\\u2019s',\r",
+									"    'Exception',\r",
+									"    'exception'\r",
+									"];\r",
+									"\r",
+									"let errorCode = [\r",
+									"    500,\r",
+									"    400,\r",
+									"    401\r",
+									"];\r",
+									"\r",
+									"pm.test('Response does not have any errors', () => {\r",
+									"    pm.expect(responseText).to.not.include.oneOf(errorsKeyword);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status code not to be 4XX, 5XX\", function(){\r",
+									"    pm.expect(pm.response.code).to.not.be.oneOf(errorCode);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code to be 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is defined\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.text().length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/tokens/v2/toptraded/24h",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tokens",
+								"v2",
+								"toptraded",
+								"24h"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Price API v3 (Beta)",
+			"item": [
+				{
+					"name": "GET /price",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseData = pm.response.json()\r",
+									"const responseText = pm.response.text();\r",
+									"\r",
+									"let errorsKeyword = [\r",
+									"    'error',\r",
+									"    'Error',\r",
+									"    'Errors',\r",
+									"    'errors',\r",
+									"    'Error\\u2019s',\r",
+									"    'error\\u2019s',\r",
+									"    'Exception',\r",
+									"    'exception'\r",
+									"];\r",
+									"\r",
+									"let errorCode = [\r",
+									"    500,\r",
+									"    400,\r",
+									"    401\r",
+									"];\r",
+									"\r",
+									"pm.test('Response does not have any errors', () => {\r",
+									"    pm.expect(responseText).to.not.include.oneOf(errorsKeyword);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status code not to be 4XX, 5XX\", function(){\r",
+									"    pm.expect(pm.response.code).to.not.be.oneOf(errorCode);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code to be 200\", function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is defined\", function () {\r",
+									"    pm.expect(pm.response.text()).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.text().length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/price/v3?ids=So11111111111111111111111111111111111111112",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"price",
+								"v3"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "So11111111111111111111111111111111111111112"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://lite-api.jup.ag",
+			"type": "default"
+		}
+	]
+}
